@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Lesson Complete</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<div class="resultsContainer">
+
+<h1 class="completeTitle">
+
+LESSON COMPLETE!
+
+</h1>
+
+<img
+id="resultGif"
+src="perfect.gif"
+width="260">
+
+<h2 id="resultText"></h2>
+
+<div class="xpEarned">
+
++<span id="xpAmount"></span> XP
+
+</div>
+
+<div class="xpBarBackground">
+
+<div
+class="xpBarFill"
+id="xpBarFill"></div>
+
+</div>
+
+<div class="rewardCards">
+
+<div class="rewardCard">
+
+<h2>🪙 Koins</h2>
+
+<p id="coinAmount"></p>
+
+</div>
+
+<div class="rewardCard">
+
+<h2>📚 Score</h2>
+
+<p id="scorePercent"></p>
+
+</div>
+
+</div>
+
+<button
+class="continueBtn"
+onclick="goHome()">
+
+CONTINUE
+
+</button>
+
+</div>
+
+<script>
+
+const earnedXP =
+Number(
+localStorage.getItem(
+"earnedXP"
+)
+) || 0;
+
+const earnedKoins =
+Number(
+localStorage.getItem(
+"earnedKoins"
+)
+) || 0;
+
+/* SCORE */
+
+const percent =
+Math.floor(
+(earnedKoins / 10) * 100
+);
+
+/* XP */
+
+document.getElementById(
+"xpAmount"
+).innerText = earnedXP;
+
+document.getElementById(
+"coinAmount"
+).innerText = earnedKoins;
+
+document.getElementById(
+"scorePercent"
+).innerText =
+percent + "%";
+
+/* GIF + MESSAGE */
+
+const gif =
+document.getElementById(
+"resultGif"
+);
+
+const text =
+document.getElementById(
+"resultText"
+);
+
+if(percent === 100) {
+
+gif.src = "perfect.gif";
+
+text.innerText =
+"PERFECT LESSON!";
+
+}
+else if(percent >= 80) {
+
+gif.src = "great.gif";
+
+text.innerText =
+"Awesome work!";
+
+}
+else if(percent >= 50) {
+
+gif.src = "okay.gif";
+
+text.innerText =
+"Good job!";
+
+}
+else {
+
+gif.src = "bad.gif";
+
+text.innerText =
+"Keep practicing!";
+
+}
+
+/* XP BAR */
+
+setTimeout(() => {
+
+document.getElementById(
+"xpBarFill"
+).style.width =
+percent + "%";
+
+}, 300);
+
+function goHome() {
+
+window.location.href =
+"index.html";
+}
+
+
+
+</script>
+
+</body>
+</html>

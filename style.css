@@ -1,0 +1,408 @@
+/* ========================= */
+/* BASE LAYOUT */
+/* ========================= */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #071d27;
+    color: white;
+}
+
+/* PAGE GRID */
+.layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 340px;
+    min-height: 100vh;
+}
+
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+
+.sidebar {
+    background: #102d39;
+    padding: 25px;
+    border-right: 2px solid #1c4453;
+
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.logo {
+    color: #58cc02;
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+
+.navBtn {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 18px;
+    border-radius: 15px;
+    border: none;
+    background: #173d4d;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: left;
+}
+
+.activeNav {
+    border: 3px solid #1cb0f6;
+}
+
+/* ========================= */
+/* MAIN CONTENT (FIXED CENTERING) */
+/* ========================= */
+
+.mainContent {
+    padding: 35px;
+
+    height: 100vh;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ⭐ THIS FIXES CENTER ISSUE */
+}
+
+/* ========================= */
+/* UNIT BANNER */
+/* ========================= */
+
+.unitBanner {
+    background: #18c79c;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* ========================= */
+/* LESSON MAP (FIXED CENTERING) */
+/* ========================= */
+
+.lessonMap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* ⭐ IMPORTANT */
+    gap: 35px;
+    width: 100%;
+}
+
+/* LESSON BUTTONS */
+
+.lessonBtn {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: none;
+    background: #58cc02;
+    cursor: pointer;
+    color: white;
+    font-size: 40px;
+    box-shadow: 0 8px 0 #46a302;
+}
+
+.lessonBtn:hover {
+    transform: scale(1.05);
+}
+
+/* REMOVE LEFT SHIFT BUG */
+.right {
+    transform: translateX(80px);
+}
+
+/* ICONS */
+.lessonIcon {
+    width: 55px;
+    height: 55px;
+}
+
+/* CHESTS */
+.chestImg {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* ACTIVE LESSON PULSE */
+@keyframes pulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(88,204,2,.7); }
+    100% { box-shadow: 0 0 0 25px rgba(88,204,2,0); }
+}
+
+.activeLesson {
+    animation: pulseRing 1.8s infinite;
+    outline: 8px solid #dfffc7;
+}
+
+/* LOCKED */
+.locked {
+    background: #3f4f58;
+    box-shadow: 0 8px 0 #2c3940;
+}
+
+/* ========================= */
+/* RIGHT PANEL */
+/* ========================= */
+
+.rightPanel {
+    padding: 25px;
+
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+/* ========================= */
+/* STATS PANEL */
+/* ========================= */
+
+.statsCard {
+    background: #102d39;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panelCard {
+    background: #102d39;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+
+/* LEADERBOARD */
+#leaderboardList {
+    list-style: none;
+    padding: 0;
+}
+
+#leaderboardList li {
+    padding: 10px;
+    border-bottom: 1px solid #1c4453;
+}
+
+/* PROGRESS */
+progress {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 15px;
+}
+
+/* ========================= */
+/* COIN DISPLAY */
+/* ========================= */
+
+.coin-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.coin-icon {
+    font-size: 42px;
+    line-height: 1;
+}
+
+#coinCount {
+    font-size: 40px;
+    line-height: 1;
+}
+
+/* ========================= */
+/* LESSON PAGE (KAHOOT STYLE FIXED) */
+/* ========================= */
+
+.lessonBody {
+    margin: 0;
+    background: #071d27;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.lessonBody .container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+}
+
+#question {
+    margin: 30px 0;
+    font-size: 36px;
+    text-align: center;
+}
+
+/* FIXED ANSWER GRID (NO CONFLICTS NOW) */
+#answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.answerBtn {
+    height: 160px;
+    font-size: 28px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+
+    color: white;
+    transition: transform 0.15s;
+}
+
+.answerBtn:hover {
+    transform: scale(1.03);
+}
+
+/* COLORS */
+.answerBtn:nth-child(1) { background: #e21b3c; }
+.answerBtn:nth-child(2) { background: #1368ce; }
+.answerBtn:nth-child(3) { background: #d89e00; }
+.answerBtn:nth-child(4) { background: #26890c; }
+
+/* ========================= */
+/* LOADING PAGE */
+/* ========================= */
+
+.loadingBody,
+.completeBody {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #071d27;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.loadingContainer,
+.resultsContainer {
+    text-align: center;
+}
+
+.loadingGif {
+    width: 250px;
+}
+
+/* COMPLETE SCREEN */
+.resultsContainer {
+    width: 90%;
+    max-width: 700px;
+
+    background: #102d39;
+    padding: 40px;
+    border-radius: 30px;
+}
+
+.xpEarned {
+    font-size: 40px;
+    color: #58cc02;
+    margin: 30px 0;
+}
+
+.xpBarBackground {
+    height: 30px;
+    background: #173d4d;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.xpBarFill {
+    width: 0%;
+    height: 100%;
+    background: #58cc02;
+    transition: width 1s ease;
+}
+.infoSlides{
+    display:none;
+    text-align:center;
+    max-width:800px;
+    margin:auto;
+}
+
+.slide{
+    font-size:28px;
+    background:#102d39;
+    padding:30px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+#nextSlideBtn{
+    padding:15px 40px;
+    font-size:20px;
+    border:none;
+    border-radius:15px;
+    background:#58cc02;
+    color:white;
+    cursor:pointer;
+}
+#quitBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #e53935;
+    color: white;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 4px 0 #b71c1c;
+}
+
+#quitBtn:hover {
+    transform: scale(1.05);
+}
+
+#quitBtn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b71c1c;
+}
+.lessonBody .container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+
+    position: relative;
+}

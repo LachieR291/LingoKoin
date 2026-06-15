@@ -1,0 +1,107 @@
+let playerXP = Number(localStorage.getItem("playerXP")) || 1840;
+let koins = Number(localStorage.getItem("koins")) || 8616;
+let lessonsCompleted = Number(localStorage.getItem("lessons")) || 0;
+
+const bots = [
+    { name: "BudgetBoss", xp: 1790 },
+    { name: "CryptoCrab", xp: 1720 },
+    { name: "StockShark", xp: 1680 },
+    { name: "PennyPincher", xp: 1600 }
+];
+
+/* SAVE */
+function save() {
+    localStorage.setItem("playerXP", playerXP);
+    localStorage.setItem("koins", koins);
+    localStorage.setItem("lessons", lessonsCompleted);
+}
+
+/* UI */
+function updateUI() {
+    document.getElementById("profileXP").textContent = playerXP;
+    document.getElementById("profileKoins").textContent = koins;
+
+    const coinDisplay = document.getElementById("coinCount");
+    if (coinDisplay) coinDisplay.textContent = koins;
+
+    document.getElementById("xpQuest").value = playerXP % 20;
+    document.getElementById("lessonQuest").value = lessonsCompleted;
+
+    updateLeaderboard();
+}
+
+/* LEADERBOARD */
+function updateLeaderboard() {
+    const leaderboard = [{ name: "You", xp: playerXP }, ...bots]
+        .sort((a, b) => b.xp - a.xp);
+
+    ["leaderboardList", "mainLeaderboard"].forEach(id => {
+        const list = document.getElementById(id);
+        if (!list) return;
+
+        list.innerHTML = "";
+        leaderboard.forEach(p => {
+            const li = document.createElement("li");
+            li.textContent = `${p.name} - ${p.xp} XP`;
+            list.appendChild(li);
+        });
+    });
+}
+
+/* TAB SWITCH */
+function showTab(tab, btn) {
+    ["learnPage", "questsPage", "leaderboardPage", "profilePage", "settingsPage"]
+        .forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = "none";
+        });
+
+    const page = document.getElementById(tab);
+    if (page) page.style.display = "block";
+
+    document.querySelectorAll(".navBtn").forEach(b => b.classList.remove("activeNav"));
+    if (btn) btn.classList.add("activeNav");
+}
+
+/* CHEST SYSTEM */
+function openChest(id = 0) {
+    if (localStorage.getItem("chest" + id)) {
+        alert("Chest already opened!");
+        return;
+    }
+
+    const reward = Math.floor(Math.random() * 101) + 50;
+    koins += reward;
+
+    localStorage.setItem("chest" + id, "true");
+
+    save();
+    updateUI();
+
+    alert(`Chest opened! +${reward} Koins`);
+}
+
+/* LESSON START */
+function startLesson(topic) {
+    localStorage.setItem("currentLesson", topic);
+    window.location.href = "lesson.html";
+}
+
+/* RESET */
+function resetProgress() {
+    if (confirm("Reset all progress?")) {
+        localStorage.clear();
+        location.reload();
+    }
+}
+
+/* BOT XP */
+setInterval(() => {
+    bots.forEach(bot => {
+        bot.xp += Math.floor(Math.random() * 51) + 10;
+    });
+    updateLeaderboard();
+}, 30000);
+
+/* INIT */
+updateUI();

@@ -1,0 +1,141 @@
+let playerXP = Number(localStorage.getItem("playerXP")) || 0;
+let koins = Number(localStorage.getItem("koins")) || 0;
+
+const lessonsData = {
+    inflation: {
+        slides: [
+            "📈 Inflation means prices go up over time.",
+            "💸 Your money buys less in the future."
+        ],
+        questions: [
+            {
+                q: "What does inflation mean?",
+                a: ["Prices rise", "Money doubles", "Taxes vanish", "Wages always triple"],
+                correct: 0
+            },
+            {
+                q: "What happens to buying power?",
+                a: ["It decreases", "It increases", "It stays same", "It resets"],
+                correct: 0
+            }
+        ]
+    },
+
+    interest: {
+        slides: [
+            "💰 Interest is cost of borrowing money.",
+            "📊 Compound interest grows over time."
+        ],
+        questions: [
+            {
+                q: "What is compound interest?",
+                a: [
+                    "Interest on interest",
+                    "Only original money",
+                    "A bank fee",
+                    "A tax"
+                ],
+                correct: 0
+            }
+        ]
+    }
+};
+
+let currentLesson = null;
+let slideIndex = 0;
+let questionIndex = 0;
+
+/* START */
+window.onload = () => {
+    const topic = localStorage.getItem("currentLesson");
+    if (!topic || !lessonsData[topic]) return;
+
+    currentLesson = lessonsData[topic];
+
+    showSlide();
+};
+
+/* SLIDES */
+function showSlide() {
+    document.getElementById("lessonSlides").style.display = "block";
+    document.getElementById("questionArea").style.display = "none";
+
+    document.getElementById("slide1").textContent =
+        currentLesson.slides[slideIndex] || "";
+
+    document.getElementById("slide2").textContent =
+        currentLesson.slides[slideIndex + 1] || "";
+}
+
+document.getElementById("nextBtn").onclick = () => {
+    slideIndex += 2;
+
+    if (slideIndex >= currentLesson.slides.length) {
+        startQuiz();
+    } else {
+        showSlide();
+    }
+};
+
+/* QUIZ */
+function startQuiz() {
+    document.getElementById("lessonSlides").style.display = "none";
+    document.getElementById("questionArea").style.display = "block";
+
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const q = currentLesson.questions[questionIndex];
+
+    document.getElementById("question").textContent = q.q;
+
+    const buttons = document.querySelectorAll(".answerBtn");
+
+    buttons.forEach((btn, i) => {
+        btn.textContent = q.a[i];
+        btn.onclick = () => checkAnswer(i);
+    });
+}
+
+/* ANSWER */
+function checkAnswer(i) {
+    const q = currentLesson.questions[questionIndex];
+
+    if (i === q.correct) {
+        playerXP += 20;
+        koins += 50;
+        alert("Correct! +XP +Koins");
+    } else {
+        alert("Wrong!");
+    }
+
+    questionIndex++;
+
+    if (questionIndex >= currentLesson.questions.length) {
+        finishLesson();
+    } else {
+        loadQuestion();
+    }
+
+    localStorage.setItem("playerXP", playerXP);
+    localStorage.setItem("koins", koins);
+}
+
+/* FINISH */
+function finishLesson() {
+    alert("Lesson complete!");
+
+    let lessons = Number(localStorage.getItem("lessons")) || 0;
+    lessons++;
+    localStorage.setItem("lessons", lessons);
+
+    window.location.href = "index.html";
+}
+
+/* QUIT */
+document.getElementById("quitBtn").onclick = () => {
+    if (confirm("Quit lesson?")) {
+        window.location.href = "index.html";
+    }
+};
